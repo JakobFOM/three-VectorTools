@@ -1,0 +1,21 @@
+{
+    "name": "three-VectorTools",
+    "version": "0.0.20200910",
+    "license": "MIT",
+    "description": "",
+    "author": "JakobFOM",
+    "repository": "https://github.com/JakobFOM/three-VectorTools",
+    "contributors": [],
+    "keywords": [
+        "three.js",
+        "VectorTools",
+        "distance"
+    ],
+    "dependencies": {
+        "three": "latest"
+    },
+    "devDependencies": {
+        "gulp": "latest",
+        "lodash": "latest"
+    }
+}
