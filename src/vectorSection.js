@@ -1,6 +1,6 @@
 //Logik:
 
-import { Vector3 } from "three/build/three.module.js";
+import { Vector3 } from "../node_modules/three/build/three.module.js";
 /**
  * 
  * @param {*} startVec 
@@ -8,14 +8,30 @@ import { Vector3 } from "three/build/three.module.js";
  * @param {*} minLength 
  */
 
-function newVectorCalc( startVec, endVec, minLength )
+const defaults = {
+    onlySection : false
+};
+
+function vectorSection( startVec, endVec, minLength, options ) 
 {
-  let percentage = 1 - ( minLength / startVec.distanceTo( endVec ) );
+    startVec = startVec || new Vector3( 0, 0, 0 );
+    endVec = endVec || new Vector3( 1, 0, 0 );
+    minLength = minLength || 0.5;
+    let opt = Object.assign({}, defaults, options);
 
-  let tempVec = new Vector3().copy( endVec ).sub( startVec );
-  tempVec.multiplyScalar( percentage ).add( startVec );
+    if ( typeof minLength === "string" ) minLength = parseFloat(minLength);
+        
+    if ( isNaN( minLength ) ) return null;
 
-  return tempVec;
+    let percentage = 1 - ( minLength / startVec.distanceTo( endVec ) );
+
+    if ( opt.onlySection === true && ( percentage < 0 || percentage > 1 ) ) return null;
+        
+    let tempVec = new Vector3().copy( endVec ).sub( startVec );
+
+    tempVec.multiplyScalar( percentage ).add( startVec );
+
+    return tempVec;
 }
 
-export default newVectorCalc;
+export default vectorSection;
